@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mine ønskelister | Ønskeseddel</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main>
+
+    <h1>Mine ønskelister</h1>
+
+    <p>Her kan du se og administrere dine ønskelister.</p>
+
+    <a th:href="@{/wishlists/create}">
+        Opret ny ønskeliste
+    </a>
+
+    <section>
+
+        <h2>Dine ønskelister</h2>
+
+        <p th:if="${#lists.isEmpty(wishlists)}">
+            Du har endnu ikke oprettet nogen ønskelister.
+        </p>
+
+        <div th:each="wishlist : ${wishlists}">
+
+            <article>
+
+                <h3 th:text="${wishlist.title}"></h3>
+
+                <p th:text="${wishlist.desciption}"></p>
+
+                <a th:href="@{/wishlists/{id}(id=${wishlist.id})}">
+                    Se ønskelise
+                </a>
+
+            </article>
+
+        </div>
+
+    </section>
+</main>
+
+</body>
+</html>
