@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min ønskeliste | Ønskeseddel</title>
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main>
+
+    <section>
+
+        <h1 th:text="${wishlist.title}"></h1>
+
+        <a th:href="@{/wishlists/{id}/edit(id=${wishlist.id})}">
+            Rediger ønskeliste
+        </a>
+
+        <form th:action="@{/wishlists/{id}/delete(id=${wishlist.id})}" method="post">
+
+            <button type="submit">Slet ønskeliste</button>
+
+        </form>
+
+    </section>
+
+    <section>
+
+        <h2>Mine ønsker</h2>
+
+        <a th:href="@{/wishlists/{id}/wishes/new(id=${wishlist.id})}">
+            Tilføj ønske
+        </a>
+
+        <p th:if="${#lists.isEmpty(wishes)}">
+            Denne ønskeliste indeholder endnu ingen ønsker.
+        </p>
+
+        <div th:each="wish : ${wishes}">
+
+            <article>
+
+                <h3 th:text="${wish.title}"></h3>
+
+                <p th:text="${wish.description}"></p>
+
+                <p th:if="${wish.price != null}"
+                   th:text="${wish.price} + ' kr.'"></p>
+
+                <a th:if="${wish.productLink != null}"
+                   th:href="${wish.productLink}"
+                   target="_blank">
+                    Se produkt
+                </a>
+
+                <a th:href="@{/wishlists/{listId}/wishes/{wishId}/edit(listId=${wishlist.id}, wishId=${wish.id})}">
+                    Rediger ønske
+                </a>
+
+                <form th:action="@{/wishlists/{listId}/wishes/{wishId}/delete(listId=${wishlist.id}, wishId=${wish.id})}"
+                      method="post">
+
+                    <button type="submit">Slet ønske</button>
+
+                </form>
+
+            </article>
+
+        </div>
+
+    </section>
+
+    <a th:href="@{/wishlists}">Tilbage til mine ønskelister</a>
+
+</main>
+
+</body>
+</html>
