@@ -6,9 +6,11 @@ import dk.ek.wishlist.model.Wish;
 import dk.ek.wishlist.model.Wishlist;
 import dk.ek.wishlist.repository.WishRepository;
 import dk.ek.wishlist.repository.WishlistRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class WishService {
 
     /// Initialisere WishlistRepository som final

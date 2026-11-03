@@ -2,7 +2,9 @@ package dk.ek.wishlist.service;
 
 import dk.ek.wishlist.model.Wishlist;
 import dk.ek.wishlist.repository.WishlistRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class WishlistService {
 
     /// Initialisere WishlistRepository klassen som final
