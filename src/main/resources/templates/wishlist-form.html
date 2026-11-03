@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret ønskeliste | Ønskeseddel</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main>
+
+    <h1>Opret ønskeliste</h1>
+
+    <p>Giv din ønskeliste en titel for at komme i gang.</p>
+
+    <form th:action="@{/wishlists}" method="post">
+
+        <div>
+
+            <label for="title">Titel</label>
+            <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    required
+                    maxlength="100">
+
+        </div>
+
+        <button type="submit">Opret ønskeliste</button>
+
+        <a th:href="@{/wishlists}">Annuller</a>
+
+    </form>
+
+</main>
+
+</body>
+</html>
