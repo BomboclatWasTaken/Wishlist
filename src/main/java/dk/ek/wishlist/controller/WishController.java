@@ -74,7 +74,7 @@ public class WishController {
 
         // Sikkerhed: listen sættes ALTID fra URL'en og ikke fra formularen.
         // Ellers kunne en bruger rette et skjult felt og lægge ønsker på andres lister.
-        wish.setWishListId(listId);
+        wish.setWishlistId(listId);
 
         // try/catch så vi slipper for whitelabel error
         try {
