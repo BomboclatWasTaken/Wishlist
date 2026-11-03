@@ -1,9 +1,13 @@
+
 <!DOCTYPE html>
-<html lang="da">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mine ønskelister | Ønskeseddel</title>
 </head>
+
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -13,6 +17,11 @@
     <h1>Mine ønskelister</h1>
 
     <p>Her kan du se og administrere dine ønskelister.</p>
+
+    <p th:if="${errorMessage}"
+       th:text="${errorMessage}"
+       style="color: red;">
+    </p>
 
     <a th:href="@{/wishlists/create}">
         Opret ny ønskeliste
@@ -32,10 +41,10 @@
 
                 <h3 th:text="${wishlist.title}"></h3>
 
-                <p th:text="${wishlist.desciption}"></p>
+                <p th:text="${wishlist.description}"></p>
 
                 <a th:href="@{/wishlists/{id}(id=${wishlist.id})}">
-                    Se ønskelise
+                    Se ønskeliste
                 </a>
 
             </article>
@@ -43,6 +52,7 @@
         </div>
 
     </section>
+
 </main>
 
 </body>
