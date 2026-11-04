@@ -1,6 +1,7 @@
 package dk.ek.wishlist.controller;
 
 import dk.ek.wishlist.model.User;
+import dk.ek.wishlist.model.Wish;
 import dk.ek.wishlist.service.WishService;
 import dk.ek.wishlist.service.WishlistService;
 import org.junit.jupiter.api.Test;
@@ -119,11 +120,26 @@ class WishControllerTest {
     }
 
     @Test
-    void showEditForm() {
+    void showEditForm_whenWishFound_showsEditform() throws Exception {
+        User user = new User(1, "Sebastian", "Sebastian@IkkeSej.dk", "1234");
+        Wish wish = new Wish(10,"Headset","Et sort headset", 2000, "http://link.dk","http://bilede.dk",5);
+
+        when(wishService.getWish(10,1)).thenReturn(wish);
+
+        mockMvc.perform(get("/wishlists/{listId}/wishes/{wishId}/edit",5,10)
+                .sessionAttr("user",user))
+                .andExpect(status().isOk())
+                .andExpect(view().name("wish-edit"))
+                .andExpect(model().attribute("wish",wish))
+                .andExpect(model().attribute("listId",5));
+
+        verify(wishService).getWish(10,1);
     }
 
     @Test
-    void updateWish() {
+    void updateWish_whenLoggedIn_updatesWishWithIdsFromUrlAndRedirects() throws Exception {
+
+
     }
 
     @Test
