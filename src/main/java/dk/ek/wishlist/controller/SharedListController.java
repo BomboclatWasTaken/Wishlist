@@ -2,7 +2,9 @@ package dk.ek.wishlist.controller;
 
 import dk.ek.wishlist.service.WishService;
 import dk.ek.wishlist.service.WishlistService;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class SharedListController {
 
     /// Initialisere WishService klassen som final
