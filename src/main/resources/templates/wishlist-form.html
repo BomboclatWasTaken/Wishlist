@@ -1,9 +1,13 @@
+
 <!DOCTYPE html>
-<html lang="da">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opret ønskeliste | Ønskeseddel</title>
 </head>
+
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -19,6 +23,7 @@
         <div>
 
             <label for="title">Titel</label>
+
             <input
                     type="text"
                     id="title"
