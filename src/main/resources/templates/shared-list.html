@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+
+    <title>Delt ønskeliste | Ønskeseddel</title>
+</head>
+
+<body>
+
+<main>
+
+    <h1 th:text="${wishlist.title}"></h1>
+
+    <p>
+        Du ser en delt ønskeliste.
+    </p>
+
+    <section>
+
+        <h2>Ønsker</h2>
+
+        <p th:if="${#lists.isEmpty(wishes)}">
+            Denne ønskeliste indeholder endnu ingen ønsker.
+        </p>
+
+        <div th:each="wish : ${wishes}">
+
+            <article>
+
+                <h3 th:text="${wish.title}"></h3>
+
+            </article>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+</html>
