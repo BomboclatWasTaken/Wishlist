@@ -120,19 +120,15 @@ class WishControllerTest {
     }
 
     @Test
-    void showEditForm_whenWishFound_showsEditform() throws Exception {
+    void showEditForm_whenWishFound_redirectsToList() throws Exception {
         User user = new User(1, "Sebastian", "Sebastian@IkkeSej.dk", "1234");
-        Wish wish = new Wish(10,"Headset","Et sort headset", 2000, "http://link.dk","http://bilede.dk",5);
 
-        when(wishService.getWish(10,1)).thenReturn(wish);
+        when(wishService.getWish(10,1)).thenReturn(null);
 
-        mockMvc.perform(get("/wishlists/{listId}/wishes/{wishId}/edit",5,10)
+        mockMvc.perform(get("/wishlists/{listId}/wishes/{wishId}/edit", 5, 10)
                 .sessionAttr("user",user))
-                .andExpect(status().isOk())
-                .andExpect(view().name("wish-edit"))
-                .andExpect(model().attribute("wish",wish))
-                .andExpect(model().attribute("listId",5));
-
+                        .andExpect(status().is3xxRedirection())
+                                .andExpect(redirectedUrl("/wishlists/5"));
         verify(wishService).getWish(10,1);
     }
 
