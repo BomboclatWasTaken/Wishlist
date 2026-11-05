@@ -17,12 +17,11 @@ public class WishlistService {
 
     /// Initialisere WishlistRepository klassen som final
     private final WishlistRepository wishlistRepository;
-    private final WishRepository wishRepository;
 
     /// Konstruktør
-    public WishlistService(WishlistRepository wishlistRepository, WishRepository wishRepository){
+    public WishlistService(WishlistRepository wishlistRepository){
         this.wishlistRepository = wishlistRepository;
-        this.wishRepository = wishRepository;
+
     }
 
     /// Henter en specifik liste, hvis den tilhører brugeren. Returnerer aldrig null, men kaster en exception hvis noget er galt
@@ -43,10 +42,13 @@ public class WishlistService {
     }
 
     /// Opretter en ny liste til brugeren med en unik delingskode.
-    public void createWishlist(Wishlist wishlist, int userId) {
+    public void createWishlist(String title, int userId) {
 
         // Tjekker at titlen ikke er tom, ellers kaster validateWishlist en exception
-        validateWishlist(wishlist);
+        validateTitle(title);
+
+        Wishlist wishlist = new Wishlist();
+        wishlist.setTitle(title);
 
         // Listen sættes altid til den indloggede bruger, så man ikke kan oprette lister på andres konti
         wishlist.setUserId(userId);
@@ -74,13 +76,13 @@ public class WishlistService {
     }
 
     /// Ændrer titlen på en liste, hvis brugeren ejer den.
-    public void updateWishlist(Wishlist wishlist, int userId) {
+    public void updateTitle(int listId, int userId, String title) {
 
         // getSpecificList kaster selv, hvis listen ikke findes eller ikke tilhører brugeren
-        getSpecificList(wishlist.getId(), userId);
+        Wishlist wishlist = getSpecificList(listId, userId);
 
         // Tjekker at den nye titel ikke er tom
-        validateWishlist(wishlist);
+        validateTitle(title);
 
         wishlistRepository.update(wishlist);
     }
@@ -91,20 +93,16 @@ public class WishlistService {
         // getSpecificList kaster selv, hvis listen ikke findes eller ikke tilhører brugeren
         getSpecificList(listId, userId);
 
-        // Ønskerne på listen slettes først, ellers kan databasen afvise at slette listen
-        // (Kan fjernes, hvis databasen har ON DELETE CASCADE)
-        wishRepository.deleteByWishlistId(listId);
-
         // Når ønskerne er væk, kan selve listen slettes
         wishlistRepository.delete(listId);
     }
 
     /// Privat metode som kun bruges i WishlistService. Tjekker at titlen ikke er tom.
-    private void validateWishlist(Wishlist wishlist) {
+    private void validateTitle(String title) {
 
         // Titlen mangler (null) eller består kun af mellemrum (isBlank)
         // (null tjekkes først, så isBlank() aldrig kaldes på null)
-        if (wishlist.getTitle() == null || wishlist.getTitle().isBlank()) {
+        if (title == null || title.isBlank()) {
             throw new InvalidInputException("Wishlist title cannot be empty");
         }
     }
