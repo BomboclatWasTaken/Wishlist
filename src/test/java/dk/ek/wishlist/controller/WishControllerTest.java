@@ -5,17 +5,20 @@ import dk.ek.wishlist.model.Wish;
 import dk.ek.wishlist.service.WishService;
 import dk.ek.wishlist.service.WishlistService;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /// Fortæller Spring at kun web-laget for WishController skal startes op til denne test,
 /// i stedet for hele applikationen. Gør testen hurtigere.
@@ -134,6 +137,28 @@ class WishControllerTest {
 
     @Test
     void updateWish_whenLoggedIn_updatesWishWithIdsFromUrlAndRedirects() throws Exception {
+        User user = new User(1, "Sebastian", "Sebastian@IkkeSej.dk", "1234");
+
+        mockMvc.perform(post("/wishlists/{listId}/wishes/{wishId}/edit", 5, 10)
+                        .sessionAttr("user", user)
+                .param("name","Nyt headset")
+                .param("price","2500")
+                .param("id","77")
+                .param("wishlistId","99"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/wishlists/5"));
+
+        ArgumentCaptor<Wish> captor = ArgumentCaptor.forClass(Wish.class);
+
+        verify(wishService).updateWish(captor.capture(), eq(1));
+
+        Wish updatedWish = captor.getValue();
+
+        assertEquals("Nyt headset", updatedWish.getName());
+
+        assertEquals(10,updatedWish.getId());
+
+        assertEquals(5, updatedWish.getWishlistId());
 
 
     }
