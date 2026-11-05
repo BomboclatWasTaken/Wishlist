@@ -29,9 +29,12 @@ public class WishService {
 
         Wishlist wishlist = wishlistRepository.findById(wish.getWishlistId());
 
+        // Stopper, hvis listen ikke findes
         if (wishlist == null) {
             throw new WishlistNotFoundException(wish.getWishlistId());
         }
+
+        // Stopper, hvis brugeren ikke ejer listen
         if (wishlist.getUserId() != userId) {
             throw new UnauthorizedAccessException();
         }
@@ -93,9 +96,13 @@ public class WishService {
     ///Privat metode som kun bruges i wishService
     /// Tjekker at navnet ikke er tomt, og at prisen ikke er negativ
     private void validateWish(Wish wish) {
+
+        // kasyter en exception hvis navnet mangler eller består kun af mellemrum
         if (wish.getName() == null || wish.getName().isBlank()) {
             throw new InvalidInputException("Wish name cannot be empty");
         }
+
+        // kaster en exception hvis prisen er negativ
         if (wish.getPrice() < 0) {
             throw new InvalidInputException("Wish price cannot be negative");
         }

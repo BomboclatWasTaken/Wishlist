@@ -25,7 +25,7 @@ public class WishlistRepositoryImpl implements WishlistRepository {
         // Opretter en variabel der indeholder vores sql streng
         // Strengen fortæller databasen at den skal oprette en ny række i "wish_list" - tabellen med værdier til kolonnerne title, share_code og user_id
         // De tre ? er pladsholdere, som bliver erstattet af værdierne i jdbcTemplate.update kaldet
-        String sql = "INSERT INTO wish_list (title, share_code, user_id VALUES (?, ?, ?)";
+        String sql = "INSERT INTO wish_list (title, share_code, user_id) VALUES (?, ?, ?)";
 
         //jdbcTemplate.update udfører SQL'en og erstatter ? med værdierne fra wishlist-objektet i rækkefølge
         jdbcTemplate.update(sql, wishlist.getTitle(), wishlist.getShareCode(), wishlist.getUserId());
