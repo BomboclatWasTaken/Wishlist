@@ -31,17 +31,20 @@ public class WishlistController {
     }
 
 
+    /// Henter brugerens ønskelister
     @GetMapping("/lists")
     public String showLists(HttpSession session, Model model) {
         User user = getLoggedInUser(session);
         if (user == null) {
             return "redirect:/login";
         }
-        // Vi bruger user.getId() fra sessionen og ikke et id fra URL'en,
-        // så en bruger aldrig kan bede om en andens lister.
+        // Vi bruger user.getId() fra sessionen og ikke et id fra URL'en så en bruger ikke kan få adgang til en andens lister.
         model.addAttribute("lists", wishlistService.getUserLists(user.getId()));
+
+        //Returnerer "brugerens-lister" siden
         return "wishlists";
     }
+
 
 
 
