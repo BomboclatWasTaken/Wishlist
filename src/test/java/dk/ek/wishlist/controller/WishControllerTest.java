@@ -75,7 +75,7 @@ class WishControllerTest {
                 .param("wishlistId", "99"))
                 .andExpect(status().is3xxRedirection())
 
-                .andExpect(redirectedUrl("wishlists/5"));
+                .andExpect(redirectedUrl("/wishlists/5"));
     }
 
     @Test
