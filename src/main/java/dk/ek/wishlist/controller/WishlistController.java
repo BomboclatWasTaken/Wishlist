@@ -1,26 +1,30 @@
 package dk.ek.wishlist.controller;
 
 import dk.ek.wishlist.model.User;
+import dk.ek.wishlist.model.Wishlist;
 import dk.ek.wishlist.service.WishService;
 import dk.ek.wishlist.service.WishlistService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class WishlistController {
 
+    /// Det her er vores "Nøgle" hvori den indloggede bruger gemmes under i sessionen
     private static final String SESSION_USER = "user";
 
-    /// Initialisere WishlistService klassen som final
+    /// Initialisere WishlistService & WishService klassen som final
     private final WishlistService wishlistService;
-
     private final WishService wishService;
 
     /// Konstruktør
     // Wishservice bruges kun til at hente listens ønsker når en liste vises.
-    public WishlistController(WishlistService wishlistService, WishService wishService){
+    public WishlistController(WishlistService wishlistService, WishService wishService) {
         this.wishlistService = wishlistService;
         this.wishService = wishService;
     }
@@ -34,8 +38,11 @@ public class WishlistController {
     /// Henter brugerens ønskelister
     @GetMapping("/lists")
     public String showLists(HttpSession session, Model model) {
+
+        // Bruger metoden til at finde den indloggede bruger
         User user = getLoggedInUser(session);
         if (user == null) {
+            // hvis den ikke finder nogen, returnere vi en redirect til loginsiden til brugeren.
             return "redirect:/login";
         }
         // Vi bruger user.getId() fra sessionen og ikke et id fra URL'en så en bruger ikke kan få adgang til en andens lister.
@@ -46,6 +53,92 @@ public class WishlistController {
     }
 
 
+    /// PostRequest til at lave en ny ønskeliste
+    @PostMapping("/lists")
+    public String createList(@RequestParam String title, HttpSession session) {
 
+        // Bruger metoden til at finde den indloggede bruger
+        User user = getLoggedInUser(session);
+        if (user == null) {
+            // hvis den ikke finder nogen, returnere vi en redirect til loginsiden til brugeren.
+            return "redirect:/login";
+        }
+
+        // Servicen laver selv delekoden og gemmer listen.
+        wishlistService.createWishlist(title, user.getId());
+
+        // Redirecter til "lists" siden
+        return "redirect:/lists";
+    }
+
+    /// GetRequest til at vise ønskelister
+    @GetMapping("/lists/{listId}")
+    public String showList(@PathVariable int listId, HttpSession session, Model model) {
+
+        // Bruger metoden til at finde den indloggede bruger
+        User user = getLoggedInUser(session);
+        if (user == null) {
+            // hvis den ikke finder nogen, returnere vi en redirect til loginsiden til brugeren.
+            return "redirect:/login";
+        }
+
+        // Servicen returnerer listen hvis den tilhører brugeren, uden tjekket kunne man skrive /lists/{en anden brugers liste} og få den frem.
+        Wishlist wishlist = wishlistService.getSpecificList(listId, user.getId());
+        if (wishlist == null) {
+            return "redirect:/lists";
+        }
+
+        model.addAttribute("wishList", wishlist);
+        model.addAttribute("wishes", wishService.getWishes(listId));
+
+        //Returnerer wishlists siden
+        return "wishlists";
 
     }
+
+    /// PostRequest til at opdatere en ønskelistes titel
+    @PostMapping("/lists/{listId}/edit")
+    public String updateTitle(@PathVariable int listId, @RequestParam String title, HttpSession session) {
+
+        // Bruger metoden til at finde den indloggede bruger
+        User user = getLoggedInUser(session);
+        if (user == null) {
+            // hvis den ikke finder nogen, returnere vi en redirect til loginsiden til brugeren.
+            return "redirect:/login";
+        }
+
+        try {
+            wishlistService.updateTitle(listId, user.getId(), title);
+
+            //Indsæt custom exception her SEBASTIAN
+        } catch (IllegalArgumentException e) {
+            // Returnere lists siden hvis vi ikke kan finde listen vi vil opdatere
+            return "redirect:/lists";
+        }
+
+        //returnere den specifikke listes side
+        return "redirect:/lists/" + listId;
+    }
+
+    /// PostRequest til at slette en ønskeliste
+    @PostMapping("/lists/{listId}/delete")
+    public String deleteList(@PathVariable int listId, HttpSession session) {
+
+        // Bruger metoden til at finde den indloggede bruger
+        User user = getLoggedInUser(session);
+
+        if (user == null) {
+            // hvis den ikke finder nogen, returnere vi en redirect til loginsiden til brugeren.
+            return "redirect:/login";
+        }
+
+        try {
+            wishlistService.deleteWishlist(listId, user.getId());
+
+            //Indsæt custom exception her SEBASTIAN
+        } catch (IllegalArgumentException e) {
+        }
+        return "redirect:/lists";
+    }
+
+}

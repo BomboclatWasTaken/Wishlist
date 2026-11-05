@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class WishController {
 
-    // Variabel til at gemme brugeren i sessionen
+    /// Det her er vores "Nøgle" hvori den indloggede bruger gemmes under i sessionen
     private static final String SESSION_USER = "user";
 
     // Initialisere WishService klassen som final
