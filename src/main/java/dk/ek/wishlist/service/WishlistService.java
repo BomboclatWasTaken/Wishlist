@@ -84,6 +84,9 @@ public class WishlistService {
         // Tjekker at den nye titel ikke er tom
         validateTitle(title);
 
+        //Angiver den nye titel til listen
+        wishlist.setTitle(title);
+
         wishlistRepository.update(wishlist);
     }
 
@@ -91,9 +94,9 @@ public class WishlistService {
     public void deleteWishlist(int listId, int userId) {
 
         // getSpecificList kaster selv, hvis listen ikke findes eller ikke tilhører brugeren
-        getSpecificList(listId, userId);
+        Wishlist wishlist = getSpecificList(listId, userId);
 
-        // Når ønskerne er væk, kan selve listen slettes
+        // findes listen så slettes den nu
         wishlistRepository.delete(listId);
     }
 

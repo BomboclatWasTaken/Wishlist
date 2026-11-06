@@ -1,5 +1,6 @@
 package dk.ek.wishlist.controller;
 
+import dk.ek.wishlist.exception.WishlistException;
 import dk.ek.wishlist.model.User;
 import dk.ek.wishlist.model.Wish;
 import dk.ek.wishlist.service.WishService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class WishController {
 
-    // Variabel til at gemme brugeren i sessionen
+    /// Det her er vores "Nøgle" hvori den indloggede bruger gemmes under i sessionen
     private static final String SESSION_USER = "user";
 
     // Initialisere WishService klassen som final
@@ -47,7 +48,10 @@ public class WishController {
         }
 
         // Tjekker om listen findes og om den tilhører brugeren
-        if (wishlistService.getSpecificList(listId, user.getId()) == null) {
+        // Servicen kaster en exception, hvis listen ikke findes eller tilhører en anden bruger
+        try {
+            wishlistService.getSpecificList(listId, user.getId());
+        } catch (WishlistException e) {
             return "redirect:/wishlists";
         }
 
@@ -80,7 +84,7 @@ public class WishController {
         try {
             // Servicen tjekker, at listen tilhører brugeren, og gemmer ønsket.
             wishService.addWish(wish, user.getId());
-        } catch (IllegalArgumentException e) {
+        } catch (WishlistException e) {
             return "redirect:/wishlists";
         }
         return "redirect:/wishlists/" + listId;
@@ -97,9 +101,11 @@ public class WishController {
         if (user == null) {
             return "redirect:/login";
         }
-        // Servicen returnerer kun ønsket hvis det ligger på en liste brugeren ejer
-        Wish wish = wishService.getWish(wishId, user.getId());
-        if (wish == null) {
+        // Servicen returnerer kun ønsket hvis det ligger på en liste brugeren ejer, ellers kaster den en exception
+        Wish wish;
+        try {
+            wish = wishService.getWish(wishId, user.getId());
+        } catch (WishlistException e) {
             return "redirect:/wishlists/" + listId;
         }
 
@@ -129,7 +135,7 @@ public class WishController {
         // try/catch så vi slipper for whitelabel error
         try {
             wishService.updateWish(wish, user.getId());
-        } catch (IllegalArgumentException e) {
+        } catch (WishlistException e) {
             return "redirect:/wishlists";
         }
         return "redirect:/wishlists/" + listId;
@@ -149,7 +155,7 @@ public class WishController {
         // try/catch så vi slipper for whitelabel error
         try {
             wishService.deleteWish(wishId, user.getId());
-        } catch (IllegalArgumentException e) {
+        } catch (WishlistException e) {
             return "redirect:/wishlists";
         }
 
