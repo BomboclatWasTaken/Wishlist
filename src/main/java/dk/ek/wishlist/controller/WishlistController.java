@@ -105,7 +105,7 @@ public class WishlistController {
         model.addAttribute("wishes", wishService.getWishes(listId));
 
         //Returnerer wishlists siden
-        return "wishlists";
+        return "wishlist-detail";
 
     }
 

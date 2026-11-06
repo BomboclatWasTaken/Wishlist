@@ -41,6 +41,21 @@
 
                     <h3 th:text="${wish.name}"></h3>
 
+                    <p th:if="${wish.description != null and !wish.description.isEmpty()}"
+                       th:text="${wish.description}">
+                    </p>
+
+                    <p th:if="${wish.price > 0}"
+                       th:text="${wish.price} + ' kr.'">
+                    </p>
+
+                    <a th:if="${wish.linkUrl != null and !wish.linkUrl.isEmpty()}"
+                       th:href="${wish.linkUrl}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Se produkt
+                    </a>
+
                 </article>
 
             </div>
