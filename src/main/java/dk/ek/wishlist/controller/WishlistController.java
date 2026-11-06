@@ -1,5 +1,6 @@
 package dk.ek.wishlist.controller;
 
+import dk.ek.wishlist.exception.WishlistException;
 import dk.ek.wishlist.model.User;
 import dk.ek.wishlist.model.Wishlist;
 import dk.ek.wishlist.service.WishService;
@@ -34,7 +35,6 @@ public class WishlistController {
         return (User) session.getAttribute(SESSION_USER);
     }
 
-
     /// Henter brugerens ønskelister
     @GetMapping("/wishlists")
     public String showLists(HttpSession session, Model model) {
@@ -64,9 +64,13 @@ public class WishlistController {
             return "redirect:/login";
         }
 
-        // Servicen laver selv delekoden og gemmer listen.
-        wishlistService.createWishlist(title, user.getId());
-
+        // try/catch så vi slipper for whitelabel error, fx hvis titlen er tom
+        try {
+            // Servicen laver selv delekoden og gemmer listen.
+            wishlistService.createWishlist(title, user.getId());
+        } catch (WishlistException e) {
+            return "redirect:/lists";
+        }
         // Redirecter til "lists" siden
         return "redirect:/lists";
     }
@@ -109,9 +113,7 @@ public class WishlistController {
 
         try {
             wishlistService.updateTitle(listId, user.getId(), title);
-
-            //Indsæt custom exception her SEBASTIAN
-        } catch (IllegalArgumentException e) {
+        } catch (WishlistException e) {
             // Returnere lists siden hvis vi ikke kan finde listen vi vil opdatere
             return "redirect:/wishlists";
         }
@@ -134,9 +136,8 @@ public class WishlistController {
 
         try {
             wishlistService.deleteWishlist(listId, user.getId());
-
-            //Indsæt custom exception her SEBASTIAN
-        } catch (IllegalArgumentException e) {
+        } catch (WishlistException e) {
+            // Listen findes ikke, eller tilhører en anden bruger. Brugeren sendes alligevel tilbage til oversigten
         }
         return "redirect:/wishlists";
     }
