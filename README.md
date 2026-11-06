@@ -1,4 +1,4 @@
-Ønskeseddel
+**Ønskeseddel
 
 Ønskeseddel er en webapplikation, hvor brugere kan oprette ønskelister, tilføje ønsker til dem og dele listerne med familie og venner via et link. Applikationen er lavet som semesterprojekt på 2. semester af Datamatikeruddannelsen på Erhvervsakademiet i København.
 
