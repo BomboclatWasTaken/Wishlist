@@ -82,7 +82,7 @@ public class UserController {
 
         // Gem brugeren i sessionen, så vi kan genkende ham ved næste request.
         session.setAttribute(SESSION_USER, user);
-        return "redirect:/lists";
+        return "redirect:/wishlists";
     }
 
         /// Getrequest til logout
