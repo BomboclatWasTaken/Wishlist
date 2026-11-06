@@ -51,7 +51,16 @@ public class WishlistController {
         //Returnerer "brugerens-lister" siden
         return "wishlists";
     }
+    @GetMapping("/wishlists/create")
+    public String showCreateForm(HttpSession session) {
+        User user = getLoggedInUser(session);
 
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        return "wishlist-form";
+    }
 
     /// PostRequest til at lave en ny ønskeliste
     @PostMapping("/wishlists/create")
@@ -92,7 +101,7 @@ public class WishlistController {
             return "redirect:/wishlists";
         }
 
-        model.addAttribute("wishList", wishlist);
+        model.addAttribute("wishlist", wishlist);
         model.addAttribute("wishes", wishService.getWishes(listId));
 
         //Returnerer wishlists siden
