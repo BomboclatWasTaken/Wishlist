@@ -23,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
         // Opretter variabel der indeholder vores sql streng
         // Strengen fortæller databasen at den skal indsætte en ny række i "users" - tabellen med værdier til kolonnerne name, email og password.
         // De tre ? er pladsholdere der bliver erstattet af værdierne i jdbcTemplate.update kaldet.
-        String sql = "INSERT INTO users (name, email, password VALUES (?, ?, ?)";
+        String sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
 
         //jdbcTemplate.update udfører SQL'en og erstatter ? med værdierne fra wishlist-objektet i rækkefølge
         jdbcTemplate.update(sql, user.getName(), user.getEmail(), user.getPassword());
