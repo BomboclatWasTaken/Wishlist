@@ -46,7 +46,7 @@ public class WishlistController {
             return "redirect:/login";
         }
         // Vi bruger user.getId() fra sessionen og ikke et id fra URL'en så en bruger ikke kan få adgang til en andens lister.
-        model.addAttribute("lists", wishlistService.getUserLists(user.getId()));
+        model.addAttribute("wishlists", wishlistService.getUserLists(user.getId()));
 
         //Returnerer "brugerens-lister" siden
         return "wishlists";
@@ -69,10 +69,10 @@ public class WishlistController {
             // Servicen laver selv delekoden og gemmer listen.
             wishlistService.createWishlist(title, user.getId());
         } catch (WishlistException e) {
-            return "redirect:/lists";
+            return "redirect:/wishlists";
         }
-        // Redirecter til "lists" siden
-        return "redirect:/lists";
+        // Redirecter til "wishlists" siden
+        return "redirect:/wishlists";
     }
 
     /// GetRequest til at vise ønskelister
@@ -114,7 +114,7 @@ public class WishlistController {
         try {
             wishlistService.updateTitle(listId, user.getId(), title);
         } catch (WishlistException e) {
-            // Returnere lists siden hvis vi ikke kan finde listen vi vil opdatere
+            // Returnere wishlists siden hvis vi ikke kan finde listen vi vil opdatere
             return "redirect:/wishlists";
         }
 
