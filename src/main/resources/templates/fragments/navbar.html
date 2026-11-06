@@ -1,0 +1,19 @@
+<nav th:fragment="navbar">
+
+  <a th:href="@{/}" class="logo">Ønskeseddel</a>
+
+  <div class="nav-links">
+
+    <a th:href="@{/}">Forside</a>
+    <a th:href="@{/wishlists}">Mine ønskelister</a>
+    <a th:href="@{/wishlists/create}">Opret ønskeliste</a>
+
+  </div>
+
+  <div class="nav-auth">
+
+    <a th:href="@{/login}">Log ind</a>
+    <a th:href="@{/register}" class="register-link">Opret bruger</a>
+
+  </div>
+</nav>

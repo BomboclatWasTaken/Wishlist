@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forside | Ønskeseddel</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main>
+
+    <section>
+
+        <h1>Velkommen til Ønskeseddel</h1>
+
+        <p>
+            Saml alle dine ønsker ét sted.
+            Opret dine egne ønskelister, tilføj ønsker
+            og del dem med familie og venner.
+        </p>
+
+        <a th:href="@{/wishlists/create}">
+            Opret ønskeliste
+        </a>
+
+        <a th:href="@{/wishlists}">
+            Se mine ønskelister
+        </a>
+
+    </section>
+
+    <section>
+
+        <h2>Sådan fungerer det</h2>
+
+        <article>
+
+            <h3>1. Opret en ønskeliste</h3>
+
+            <p>
+                Opret en ønskeliste til fødselsdag,
+                jul eller andre særlige anledninger.
+            </p>
+
+        </article>
+
+        <article>
+
+            <h3>2. Tilføj dine ønsker</h3>
+
+            <p>
+                Tilføj de ting, du ønsker dig,
+                med beskrivelse, pris og eventuelt et link.
+            </p>
+
+        </article>
+
+        <article>
+
+            <h3>3. Del din ønskeliste</h3>
+
+            <p>
+                Del din ønskeliste med familie og venner,
+                så de kan se, hvad du ønsker dig.
+            </p>
+
+        </article>
+
+    </section>
+
+</main>
+
+</body>
+</html>

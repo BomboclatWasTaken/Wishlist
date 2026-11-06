@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Delt ønskeliste | Ønskeseddel</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<main>
+
+    <div th:if="${wishlist == null}">
+        <h1>Ønskelisten findes ikke</h1>
+        <p th:text="${errorMessage}"></p>
+        <a th:href="@{/}">Tilbage til forsiden</a>
+    </div>
+
+    <div th:if="${wishlist != null}">
+
+        <h1 th:text="${wishlist.title}"></h1>
+
+        <p>
+            Du ser på en delt ønskeliste.
+        </p>
+
+        <section>
+
+            <h2>Ønsker</h2>
+
+            <p th:if="${#lists.isEmpty(wishes)}">
+                Denne ønskeliste indeholder endnu ingen ønsker.
+            </p>
+
+            <div th:each="wish : ${wishes}">
+
+                <article>
+
+                    <h3 th:text="${wish.name}"></h3>
+
+                    <p th:if="${wish.description != null and !wish.description.isEmpty()}"
+                       th:text="${wish.description}">
+                    </p>
+
+                    <p th:if="${wish.price > 0}"
+                       th:text="${wish.price} + ' kr.'">
+                    </p>
+
+                    <a th:if="${wish.linkUrl != null and !wish.linkUrl.isEmpty()}"
+                       th:href="${wish.linkUrl}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Se produkt
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+</body>
+</html>

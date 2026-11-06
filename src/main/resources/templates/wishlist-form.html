@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opret ønskeliste | Ønskeseddel</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main>
+
+    <h1>Opret ønskeliste</h1>
+
+    <p>Giv din ønskeliste en titel for at komme i gang.</p>
+
+    <form th:action="@{/wishlists/create}" method="post">
+
+        <div>
+
+            <label for="title">Titel</label>
+
+            <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    required
+                    maxlength="100">
+
+        </div>
+
+        <button type="submit">Opret ønskeliste</button>
+
+        <a th:href="@{/wishlists}">Annuller</a>
+
+    </form>
+
+</main>
+
+</body>
+</html>
