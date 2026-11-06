@@ -2,6 +2,9 @@
 
 Ønskeseddel er en webapplikation, hvor brugere kan oprette ønskelister, tilføje ønsker til dem og dele listerne med familie og venner via et link. Applikationen er lavet som semesterprojekt på 2. semester af Datamatikeruddannelsen på Erhvervsakademiet i København.
 
+Link til applikation: wishlists-ckcpbrhqg4epfsax.denmarkeast-01.azurewebsites.net
+
+Link til database: wishlist.mysql.database.azure.com
 
 Applikationen er hostet hos Microsoft Azure, og databasen kører som en MySQL-database hos Microsoft Azure.
 
