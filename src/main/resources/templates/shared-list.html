@@ -2,7 +2,7 @@
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Delt ønskeliste | Ønskeseddel</title>
 
@@ -13,31 +13,41 @@
 
 <main>
 
-    <h1 th:text="${wishlist.title}"></h1>
+    <div th:if="${wishlist == null}">
+        <h1>Ønskelisten findes ikke</h1>
+        <p th:text="${errorMessage}"></p>
+        <a th:href="@{/}">Tilbage til forsiden</a>
+    </div>
 
-    <p>
-        Du ser på en delt ønskeliste.
-    </p>
+    <div th:if="${wishlist != null}">
 
-    <section>
+        <h1 th:text="${wishlist.title}"></h1>
 
-        <h2>Ønsker</h2>
-
-        <p th:if="${#lists.isEmpty(wishes)}">
-            Denne ønskeliste indeholder endnu ingen ønsker.
+        <p>
+            Du ser på en delt ønskeliste.
         </p>
 
-        <div th:each="wish : ${wishes}">
+        <section>
 
-            <article>
+            <h2>Ønsker</h2>
 
-                <h3 th:text="${wish.title}"></h3>
+            <p th:if="${#lists.isEmpty(wishes)}">
+                Denne ønskeliste indeholder endnu ingen ønsker.
+            </p>
 
-            </article>
+            <div th:each="wish : ${wishes}">
 
-        </div>
+                <article>
 
-    </section>
+                    <h3 th:text="${wish.name}"></h3>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </div>
 
 </main>
 

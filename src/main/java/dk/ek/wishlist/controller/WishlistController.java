@@ -54,7 +54,7 @@ public class WishlistController {
 
 
     /// PostRequest til at lave en ny ønskeliste
-    @PostMapping("/wishlists")
+    @PostMapping("/wishlists/create")
     public String createList(@RequestParam String title, HttpSession session) {
 
         // Bruger metoden til at finde den indloggede bruger
@@ -88,10 +88,8 @@ public class WishlistController {
 
         // Servicen returnerer listen hvis den tilhører brugeren, uden tjekket kunne man skrive /lists/{en anden brugers liste} og få den frem.
         Wishlist wishlist = wishlistService.getSpecificList(listId, user.getId());
-        try {
-            wishlist = wishlistService.getSpecificList(listId, user.getId());
-        } catch (WishlistException e) {
-            return "redirect:/lists";
+        if (wishlist == null) {
+            return "redirect:/wishlists";
         }
 
         model.addAttribute("wishList", wishlist);
@@ -117,7 +115,7 @@ public class WishlistController {
             wishlistService.updateTitle(listId, user.getId(), title);
         } catch (WishlistException e) {
             // Returnere lists siden hvis vi ikke kan finde listen vi vil opdatere
-            return "redirect:/lists";
+            return "redirect:/wishlists";
         }
 
         //returnere den specifikke listes side
@@ -141,7 +139,6 @@ public class WishlistController {
         } catch (WishlistException e) {
             // Listen findes ikke, eller tilhører en anden bruger. Brugeren sendes alligevel tilbage til oversigten
         }
-
         return "redirect:/wishlists";
     }
 
