@@ -1,5 +1,7 @@
 package dk.ek.wishlist.controller;
 
+import dk.ek.wishlist.exception.WishNotFoundException;
+import dk.ek.wishlist.exception.WishlistNotFoundException;
 import dk.ek.wishlist.model.User;
 import dk.ek.wishlist.model.Wish;
 import dk.ek.wishlist.service.WishService;
@@ -48,7 +50,7 @@ class WishControllerTest {
 
         User user = new User(1, "Sebastian", "sebastian@IkkeSej.dk", "1234");
 
-        when(wishlistService.getSpecificList(5,1)).thenReturn(null);
+        when(wishlistService.getSpecificList(5, 1)).thenThrow(new WishlistNotFoundException(5));
 
 
         mockMvc.perform(get("/wishlists/{listId}/wishes/new",5)
@@ -82,7 +84,7 @@ class WishControllerTest {
     void showEditForm_whenWishFound_redirectsToList() throws Exception {
         User user = new User(1, "Sebastian", "Sebastian@IkkeSej.dk", "1234");
 
-        when(wishService.getWish(10,1)).thenReturn(null);
+        when(wishService.getWish(10, 1)).thenThrow(new WishNotFoundException(10));
 
         mockMvc.perform(get("/wishlists/{listId}/wishes/{wishId}/edit", 5, 10)
                 .sessionAttr("user",user))
