@@ -1,5 +1,8 @@
 package dk.ek.wishlist.controller;
 
+import dk.ek.wishlist.exception.EmailAlreadyExistsException;
+import dk.ek.wishlist.exception.InvalidInputException;
+import dk.ek.wishlist.exception.InvalidLoginException;
 import dk.ek.wishlist.model.User;
 import dk.ek.wishlist.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -20,7 +23,7 @@ public class UserController {
     private static final String SESSION_USER = "user";
 
     /// Konstruktør
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
@@ -46,8 +49,9 @@ public class UserController {
         try {
             userService.register(user);
 
-            //Lav denne om til custom exception
-        } catch (IllegalArgumentException e) {
+            // Emailen er i brug, eller input er ugyldigt (fx tomt navn): vi viser siden igen med fejlbeskeden
+            // (Med | fanger vi to exceptions med samme håndtering)
+        } catch (EmailAlreadyExistsException | InvalidInputException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "register";
         }
@@ -65,11 +69,13 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
 
-        // Servicen returnerer brugeren hvis login er korrekt
-        User user = userService.login(email, password);
+        // Servicen returnerer brugeren hvis login er korrekt, ellers kaster den en exception
+        User user;
+        try {
+            user = userService.login(email, password);
 
-        //Hvis user er null så får brugeren en fejlbesked
-        if (user == null) {
+        } catch (InvalidLoginException e) {
+            // Forkert email eller kodeord: brugeren får en fejlbesked
             model.addAttribute("errorMessage", "Forkert e-mail eller kodeord");
             return "login";
         }
@@ -79,15 +85,14 @@ public class UserController {
         return "redirect:/lists";
     }
 
-    /// Getrequest til logout
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
+        /// Getrequest til logout
+        @GetMapping("/logout")
+        public String logout (HttpSession session){
 
-        //Session.invalidate() invalidere sessionen og brugeren logges ud
-        session.invalidate();
+            //Session.invalidate() invalidere sessionen og brugeren logges ud
+            session.invalidate();
 
-        //Redirecter til forsiden
-        return "redirect:/";
+            //Redirecter til forsiden
+            return "redirect:/";
+        }
     }
-
-}
