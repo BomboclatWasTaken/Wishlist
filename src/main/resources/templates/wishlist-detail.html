@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Min ønskeliste | Ønskeseddel</title>
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -13,83 +14,142 @@
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<main>
+<main class="wishlist-page">
 
-    <section>
+    <section class="wishlist-header">
 
-        <h1 th:text="${wishlist.title}"></h1>
-
-        <!-- Rediger ønskeliste -->
-        <form th:action="@{/wishlists/{listId}/edit(listId=${wishlist.id})}"
-              method="post">
-
-            <label for="title">Ønskelistens titel</label>
-            <input type="text"
-                   id="title"
-                   name="title"
-                   th:value="${wishlist.title}"
-                   required>
-
-            <button type="submit">Gem ændringer</button>
-
-        </form>
-
-        <!-- Delingslink -->
-        <div>
-            <p>Del din ønskeliste:</p>
-
-            <a th:href="@{/shared/{shareCode}(shareCode=${wishlist.shareCode})}">
-                Åbn delt ønskeliste
-            </a>
+        <div class="wishlist-heading">
+            <div>
+                <span class="wishlist-label">MIN ØNSKELISTE</span>
+                <h1 th:text="${wishlist.title}"></h1>
+                <p>Hold styr på dine ønsker og del dem med andre.</p>
+            </div>
         </div>
 
-        <form th:action="@{/wishlists/{id}/delete(id=${wishlist.id})}" method="post">
+        <div class="wishlist-edit">
 
-            <button type="submit">Slet ønskeliste</button>
+            <form th:action="@{/wishlists/{listId}/edit(listId=${wishlist.id})}"
+                  method="post">
+
+                <label for="title">Rediger titel</label>
+
+                <div class="wishlist-edit-row">
+                    <input type="text"
+                           id="title"
+                           name="title"
+                           th:value="${wishlist.title}"
+                           required>
+
+                    <button type="submit" class="btn btn-primary">
+                        Gem ændringer
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="wishlist-share">
+
+            <div class="share-information">
+                <h2>Del din ønskeliste</h2>
+                <p>Inviter venner og familie til at se dine ønsker.</p>
+            </div>
+
+            <div class="share-actions">
+
+                <a class="btn btn-secondary"
+                   th:href="@{/shared/{shareCode}(shareCode=${wishlist.shareCode})}">
+                    Åbn delt ønskeliste
+                </a>
+
+                <button type="button"
+                        class="btn btn-primary"
+                        onclick="copyShareLink()">
+                    Kopiér link
+                </button>
+
+            </div>
+
+            <p id="copyMessage" class="copy-message"></p>
+
+        </div>
+
+        <form class="wishlist-delete"
+              th:action="@{/wishlists/{id}/delete(id=${wishlist.id})}"
+              method="post">
+
+            <button type="submit" class="btn btn-danger">
+                Slet ønskeliste
+            </button>
 
         </form>
 
     </section>
 
-    <section>
+    <section class="wishlist-content">
 
-        <h2>Mine ønsker</h2>
+        <div class="wishlist-content-heading">
+            <div>
+                <span class="wishlist-label">DIN SAMLING</span>
+                <h2>Mine ønsker</h2>
+            </div>
 
-        <a th:href="@{/wishlists/{id}/wishes/new(id=${wishlist.id})}">
-            Tilføj ønske
-        </a>
+            <a class="btn btn-primary"
+               th:href="@{/wishlists/{id}/wishes/new(id=${wishlist.id})}">
+                + Tilføj ønske
+            </a>
+        </div>
 
-        <p th:if="${#lists.isEmpty(wishes)}">
+        <p class="wishlist-empty"
+           th:if="${#lists.isEmpty(wishes)}">
             Denne ønskeliste indeholder endnu ingen ønsker.
         </p>
 
-        <div th:each="wish : ${wishes}">
+        <div class="wishlist-grid" th:each="wish : ${wishes}">
 
-            <article>
+            <article class="wishlist-item">
 
-                <h3 th:text="${wish.name}"></h3>
+                <div class="wish-information">
 
-                <p th:text="${wish.description}"></p>
+                    <h3 th:text="${wish.name}"></h3>
 
-                <p th:if="${wish.price > 0}"
-                   th:text="${wish.price} + ' kr.'"></p>
+                    <p th:if="${wish.description != null and !wish.description.isEmpty()}"
+                       th:text="${wish.description}">
+                    </p>
 
-                <a th:if="${wish.linkUrl != null}"
-                   th:href="${wish.linkUrl}"
-                   target="_blank">
-                    Se produkt
-                </a>
+                    <span class="wish-price"
+                          th:if="${wish.price > 0}"
+                          th:text="${wish.price} + ' kr.'">
+                    </span>
 
-                <a th:href="@{/wishlists/{listId}/wishes/{wishId}/edit(listId=${wishlist.id}, wishId=${wish.id})}">
-                    Rediger ønske
-                </a>
+                    <a class="wish-product-link"
+                       th:if="${wish.linkUrl != null and !wish.linkUrl.isEmpty()}"
+                       th:href="${wish.linkUrl}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Se produkt →
+                    </a>
 
-                <form th:action="@{/wishlists/{listId}/wishes/{wishId}/delete(listId=${wishlist.id}, wishId=${wish.id})}"
-                      method="post">
+                </div>
 
-                    <button type="submit">Slet ønske</button>
+                <div class="wish-actions">
 
-                </form>
+                    <a class="btn btn-secondary btn-small"
+                       th:href="@{/wishlists/{listId}/wishes/{wishId}/edit(listId=${wishlist.id}, wishId=${wish.id})}">
+                        Rediger
+                    </a>
+
+                    <form th:action="@{/wishlists/{listId}/wishes/{wishId}/delete(listId=${wishlist.id}, wishId=${wish.id})}"
+                          method="post">
+
+                        <button type="submit" class="btn btn-danger btn-small">
+                            Slet
+                        </button>
+
+                    </form>
+
+                </div>
 
             </article>
 
@@ -97,9 +157,22 @@
 
     </section>
 
-    <a th:href="@{/wishlists}">Tilbage til mine ønskelister</a>
+    <a class="back-link" th:href="@{/wishlists}">
+        ← Tilbage til mine ønskelister
+    </a>
 
 </main>
+
+<script>
+    function copyShareLink() {
+        const link = document.querySelector(".share-actions a").href;
+
+        navigator.clipboard.writeText(link).then(() => {
+            document.getElementById("copyMessage").textContent =
+                "Linket er kopieret!";
+        });
+    }
+</script>
 
 </body>
 </html>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 
@@ -25,16 +24,16 @@
        style="color: red;">
     </p>
 
-    <form th:action="@{/wishlists/{id}/wishes(id=${wishlistId})}" method="post">
+    <form th:action="@{/wishlists/{id}/wishes(id=${listId})}" method="post">
 
         <div>
 
-            <label for="title">Titel</label>
+            <label for="name">Titel</label>
 
             <input
                     type="text"
-                    id="title"
-                    name="title"
+                    id="name"
+                    name="name"
                     placeholder="Indtast ønskets titel"
                     required
                     maxlength="100">
@@ -69,19 +68,19 @@
 
         <div>
 
-            <label for="productLink">Produktlink</label>
+            <label for="linkUrl">Produktlink</label>
 
             <input
                     type="url"
-                    id="productLink"
-                    name="productLink"
+                    id="linkUrl"
+                    name="linkUrl"
                     placeholder="https://">
 
         </div>
 
         <button type="submit">Gem ønske</button>
 
-        <a th:href="@{/wishlists/{id}(id=${wishlistId})}">
+        <a th:href="@{/wishlists/{id}(id=${listId})}">
             Annuller
         </a>
 
