@@ -36,7 +36,7 @@ public class WishlistController {
 
 
     /// Henter brugerens ønskelister
-    @GetMapping("/lists")
+    @GetMapping("/wishlists")
     public String showLists(HttpSession session, Model model) {
 
         // Bruger metoden til at finde den indloggede bruger
@@ -54,7 +54,7 @@ public class WishlistController {
 
 
     /// PostRequest til at lave en ny ønskeliste
-    @PostMapping("/lists")
+    @PostMapping("/wishlists/create")
     public String createList(@RequestParam String title, HttpSession session) {
 
         // Bruger metoden til at finde den indloggede bruger
@@ -72,7 +72,7 @@ public class WishlistController {
     }
 
     /// GetRequest til at vise ønskelister
-    @GetMapping("/lists/{listId}")
+    @GetMapping("/wishlists/{listId}")
     public String showList(@PathVariable int listId, HttpSession session, Model model) {
 
         // Bruger metoden til at finde den indloggede bruger
@@ -85,7 +85,7 @@ public class WishlistController {
         // Servicen returnerer listen hvis den tilhører brugeren, uden tjekket kunne man skrive /lists/{en anden brugers liste} og få den frem.
         Wishlist wishlist = wishlistService.getSpecificList(listId, user.getId());
         if (wishlist == null) {
-            return "redirect:/lists";
+            return "redirect:/wishlists";
         }
 
         model.addAttribute("wishList", wishlist);
@@ -97,7 +97,7 @@ public class WishlistController {
     }
 
     /// PostRequest til at opdatere en ønskelistes titel
-    @PostMapping("/lists/{listId}/edit")
+    @PostMapping("/wishlists/{listId}/edit")
     public String updateTitle(@PathVariable int listId, @RequestParam String title, HttpSession session) {
 
         // Bruger metoden til at finde den indloggede bruger
@@ -113,15 +113,15 @@ public class WishlistController {
             //Indsæt custom exception her SEBASTIAN
         } catch (IllegalArgumentException e) {
             // Returnere lists siden hvis vi ikke kan finde listen vi vil opdatere
-            return "redirect:/lists";
+            return "redirect:/wishlists";
         }
 
         //returnere den specifikke listes side
-        return "redirect:/lists/" + listId;
+        return "redirect:/wishlists/" + listId;
     }
 
     /// PostRequest til at slette en ønskeliste
-    @PostMapping("/lists/{listId}/delete")
+    @PostMapping("/wishlists/{listId}/delete")
     public String deleteList(@PathVariable int listId, HttpSession session) {
 
         // Bruger metoden til at finde den indloggede bruger
@@ -138,7 +138,7 @@ public class WishlistController {
             //Indsæt custom exception her SEBASTIAN
         } catch (IllegalArgumentException e) {
         }
-        return "redirect:/lists";
+        return "redirect:/wishlists";
     }
 
 }
