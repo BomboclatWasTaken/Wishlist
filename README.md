@@ -91,6 +91,9 @@ erDiagram
         int wish_list_id FK
     }
 ```
+## Klassediagram
+
+https://github.com/BomboclatWasTaken/Wishlist/blob/main/Wishlist%20KlasseDiagram.pdf
 
 ## Afgrænsninger
 
