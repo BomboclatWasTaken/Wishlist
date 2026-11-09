@@ -101,6 +101,9 @@ https://github.com/BomboclatWasTaken/Wishlist/blob/main/Ideate-fasen.pdf
 ## Usability Test:
 https://github.com/BomboclatWasTaken/Wishlist/blob/main/Usabilitytest_%20Wishlist.pdf
 
+## Heuristic Evaluation & Shneidermans 8 Golden Rules
+https://github.com/BomboclatWasTaken/Wishlist/blob/main/Heuristic%20Evaluation%20%26%20Shneidermans%208%20Golden%20Rules.pdf
+
 ## Afgrænsninger
 
 - Adgangskoder gemmes i klartekst og bliver ikke hashet.
