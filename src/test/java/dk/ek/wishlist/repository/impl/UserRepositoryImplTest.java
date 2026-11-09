@@ -9,7 +9,10 @@ import org.springframework.test.context.jdbc.Sql;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
+// Bruger "test"-profile, så testen kører mod H2-databasen i hukommelsen og ikke den rigtige database
 @ActiveProfiles("test")
+// Kører h2init.sql før hver test: sletter og laver tabellerne igen
+//Starter alle tests med de samme data, og en test kan ikke påvirke de andre.
 @Sql(scripts = "classpath:h2init.sql", executionPhase = BEFORE_TEST_METHOD)
 class UserRepositoryImplTest {
 
@@ -24,6 +27,7 @@ class UserRepositoryImplTest {
         User user = userRepository.findByEmail("anna@test.dk");
 
         assertThat(user).isNotNull();
+        //Navnet og id'et skal matche det der står i h2init.sql
         assertThat(user.getName()).isEqualTo("Anna");
         assertThat(user.getId()).isEqualTo(1);
     }
