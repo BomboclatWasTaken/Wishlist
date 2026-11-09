@@ -16,30 +16,49 @@
 
 <main>
 
-    <h1>Opret ønskeliste</h1>
-
-    <p>Giv din ønskeliste en titel for at komme i gang.</p>
-
-    <form th:action="@{/wishlists/create}" method="post">
-
+    <section>
         <div>
-
-            <label for="title">Titel</label>
-
-            <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    required
-                    maxlength="100">
-
+            <h1>Opret en ny ønskeliste</h1>
+            <p>
+                Start med at give din ønskeliste en titel.
+                Du kan efterfølgende tilføje alle dine ønsker.
+            </p>
         </div>
+    </section>
 
-        <button type="submit">Opret ønskeliste</button>
+    <section>
+        <div>
+            <h2>Navngiv din ønskeliste</h2>
 
-        <a th:href="@{/wishlists}">Annuller</a>
+            <form th:action="@{/wishlists/create}" method="post">
 
-    </form>
+                <div>
+                    <label for="title">Titel på ønskeliste</label>
+                    <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            placeholder="F.eks. Fødselsdag eller jul"
+                            required
+                            maxlength="100">
+                </div>
+
+                <div>
+                    <button type="submit">Opret ønskeliste</button>
+                    <a th:href="@{/wishlists}">Annuller</a>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <section>
+        <h2>Hvad sker der bagefter?</h2>
+        <p>
+            Når din ønskeliste er oprettet, kan du tilføje ønsker,
+            redigere listen og dele den med familie og venner.
+        </p>
+    </section>
 
 </main>
 

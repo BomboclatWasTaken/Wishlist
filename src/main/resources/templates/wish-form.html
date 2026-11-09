@@ -15,76 +15,72 @@
 
 <main>
 
-    <h1>Tilføj ønske</h1>
-
-    <p>Udfyld oplysningerne om det ønske, du vil tilføje.</p>
-
-    <p th:if="${errorMessage}"
-       th:text="${errorMessage}"
-       style="color: red;">
-    </p>
-
-    <form th:action="@{/wishlists/{id}/wishes(id=${listId})}" method="post">
-
+    <section>
         <div>
-
-            <label for="name">Titel</label>
-
-            <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Indtast ønskets titel"
-                    required
-                    maxlength="100">
-
+            <h1>Tilføj et nyt ønske</h1>
+            <p>
+                Udfyld oplysningerne nedenfor for at tilføje
+                et nyt ønske til din ønskeliste.
+            </p>
         </div>
+    </section>
 
+    <section>
         <div>
+            <h2>Oplysninger om dit ønske</h2>
 
-            <label for="description">Beskrivelse</label>
+            <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
 
-            <textarea
-                    id="description"
-                    name="description"
-                    placeholder="Beskriv dit ønske">
-            </textarea>
+            <form th:action="@{/wishlists/{id}/wishes(id=${listId})}" method="post">
 
+                <div>
+                    <label for="name">Titel</label>
+                    <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Indtast ønskets titel"
+                            required
+                            maxlength="100">
+                </div>
+
+                <div>
+                    <label for="description">Beskrivelse</label>
+                    <textarea
+                            id="description"
+                            name="description"
+                            placeholder="Beskriv dit ønske">
+                    </textarea>
+                </div>
+
+                <div>
+                    <label for="price">Pris (kr.)</label>
+                    <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            placeholder="Indtast pris"
+                            min="0"
+                            step="0.01">
+                </div>
+
+                <div>
+                    <label for="linkUrl">Produktlink</label>
+                    <input
+                            type="url"
+                            id="linkUrl"
+                            name="linkUrl"
+                            placeholder="https://">
+                </div>
+
+                <div>
+                    <button type="submit">Gem ønske</button>
+                    <a th:href="@{/wishlists/{id}(id=${listId})}">Annuller</a>
+                </div>
+
+            </form>
         </div>
-
-        <div>
-
-            <label for="price">Pris (kr.)</label>
-
-            <input
-                    type="number"
-                    id="price"
-                    name="price"
-                    placeholder="Indtast pris"
-                    min="0"
-                    step="0.01">
-
-        </div>
-
-        <div>
-
-            <label for="linkUrl">Produktlink</label>
-
-            <input
-                    type="url"
-                    id="linkUrl"
-                    name="linkUrl"
-                    placeholder="https://">
-
-        </div>
-
-        <button type="submit">Gem ønske</button>
-
-        <a th:href="@{/wishlists/{id}(id=${listId})}">
-            Annuller
-        </a>
-
-    </form>
+    </section>
 
 </main>
 

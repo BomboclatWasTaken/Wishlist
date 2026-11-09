@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Log ind | Ønskeseddel</title>
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -13,53 +13,58 @@
 
 <main>
 
-    <h1>Log ind</h1>
-
-    <p>Log ind for at se og administrere dine ønskelister</p>
-
-    <p th:if="${errorMessage}"
-       th:text="${errorMessage}"
-       style="color: red;">
-    </p>
-
-    <form th:action="@{/login}" method="post">
-
+    <section>
         <div>
-
-            <label for="email">E-mail</label>
-
-            <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Indtast den e-mail"
-                required>
-
+            <h1>Velkommen tilbage</h1>
+            <p>Log ind på din konto for at se og administrere dine ønskelister.</p>
         </div>
+    </section>
 
+    <section>
         <div>
+            <h2>Log ind på din konto</h2>
 
-            <label for="password">Adgangskode</label>
+            <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
 
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Indtast din adgangskode"
-                required>
+            <form th:action="@{/login}" method="post">
 
+                <div>
+                    <label for="email">E-mail</label>
+                    <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Indtast din e-mail"
+                            required>
+                </div>
+
+                <div>
+                    <label for="password">Adgangskode</label>
+                    <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Indtast din adgangskode"
+                            required>
+                </div>
+
+                <button type="submit">Log ind</button>
+
+            </form>
         </div>
+    </section>
 
-        <button type="submit">Log ind</button>
+    <section>
+        <div>
+            <h2>Har du ikke en konto?</h2>
+            <p>Opret en konto og begynd at samle alle dine ønsker ét sted.</p>
+            <a th:href="@{/register}">Opret en konto</a>
+        </div>
+    </section>
 
-    </form>
-
-    <p>
-        Har du ikke en konto?
-        <a th:href="@{/register}">Opret en konto</a>
-    </p>
-
-    <a th:href="@{/}">Tilbage til forsiden</a>
+    <nav>
+        <a th:href="@{/}">Tilbage til forsiden</a>
+    </nav>
 
 </main>
 

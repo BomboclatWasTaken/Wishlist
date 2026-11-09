@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
 
@@ -16,41 +15,57 @@
 
 <main>
 
-    <h1>Mine ønskelister</h1>
-
-    <p>Her kan du se og administrere dine ønskelister.</p>
-
-    <p th:if="${errorMessage}"
-       th:text="${errorMessage}"
-       style="color: red;">
-    </p>
-
-    <a th:href="@{/wishlists/create}">
-        Opret ny ønskeliste
-    </a>
-
     <section>
-
-        <h2>Dine ønskelister</h2>
-
-        <p th:if="${#lists.isEmpty(wishlists)}">
-            Du har endnu ikke oprettet nogen ønskelister.
-        </p>
-
-        <div th:each="wishlist : ${wishlists}">
-
-            <article>
-
-                <h3 th:text="${wishlist.title}"></h3>
-
-                <a th:href="@{/wishlists/{id}(id=${wishlist.id})}">
-                    Se ønskeliste
-                </a>
-
-            </article>
-
+        <div>
+            <span>MIT OVERBLIK</span>
+            <h1>Mine ønskelister</h1>
+            <p>
+                Her kan du samle, organisere og administrere
+                alle dine personlige ønskelister.
+            </p>
         </div>
 
+        <div>
+            <a th:href="@{/wishlists/create}">Opret ny ønskeliste</a>
+        </div>
+    </section>
+
+    <section>
+        <p th:if="${errorMessage}" th:text="${errorMessage}"></p>
+    </section>
+
+    <section>
+        <div>
+            <h2>Dine ønskelister</h2>
+            <p>Få et samlet overblik over dine oprettede ønskelister.</p>
+        </div>
+
+        <div th:if="${#lists.isEmpty(wishlists)}">
+            <h3>Du har endnu ingen ønskelister</h3>
+            <p>
+                Begynd med at oprette din første ønskeliste,
+                så du kan samle alle dine ønsker ét sted.
+            </p>
+            <a th:href="@{/wishlists/create}">Opret din første ønskeliste</a>
+        </div>
+
+        <div th:unless="${#lists.isEmpty(wishlists)}">
+
+            <div th:each="wishlist : ${wishlists}">
+                <article>
+                    <div>
+                        <h3 th:text="${wishlist.title}"></h3>
+                    </div>
+
+                    <div>
+                        <a th:href="@{/wishlists/{id}(id=${wishlist.id})}">
+                            Se ønskeliste
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+        </div>
     </section>
 
 </main>

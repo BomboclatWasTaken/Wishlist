@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="da" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Delt ønskeliste | Ønskeseddel</title>
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -13,53 +13,63 @@
 
 <main>
 
-    <div th:if="${wishlist == null}">
-        <h1>Ønskelisten findes ikke</h1>
-        <p th:text="${errorMessage}"></p>
-        <a th:href="@{/}">Tilbage til forsiden</a>
-    </div>
+    <section th:if="${wishlist == null}">
+        <div>
+            <h1>Ønskelisten findes ikke</h1>
+            <p th:text="${errorMessage}"></p>
+            <a th:href="@{/}">Tilbage til forsiden</a>
+        </div>
+    </section>
 
     <div th:if="${wishlist != null}">
 
-        <h1 th:text="${wishlist.title}"></h1>
-
-        <p>
-            Du ser på en delt ønskeliste.
-        </p>
+        <section>
+            <div>
+                <p>Delt ønskeliste</p>
+                <h1 th:text="${wishlist.title}"></h1>
+                <p>
+                    Her kan du se alle ønskerne på denne ønskeliste.
+                </p>
+            </div>
+        </section>
 
         <section>
+            <div>
+                <h2>Ønsker på listen</h2>
 
-            <h2>Ønsker</h2>
+                <p th:if="${#lists.isEmpty(wishes)}">
+                    Denne ønskeliste indeholder endnu ingen ønsker.
+                </p>
 
-            <p th:if="${#lists.isEmpty(wishes)}">
-                Denne ønskeliste indeholder endnu ingen ønsker.
-            </p>
+                <div th:unless="${#lists.isEmpty(wishes)}">
 
-            <div th:each="wish : ${wishes}">
+                    <div th:each="wish : ${wishes}">
+                        <article>
+                            <div>
+                                <h3 th:text="${wish.name}"></h3>
 
-                <article>
+                                <p th:if="${wish.description != null and !wish.description.isEmpty()}"
+                                   th:text="${wish.description}">
+                                </p>
+                            </div>
 
-                    <h3 th:text="${wish.name}"></h3>
+                            <div>
+                                <p th:if="${wish.price > 0}"
+                                   th:text="${wish.price} + ' kr.'">
+                                </p>
 
-                    <p th:if="${wish.description != null and !wish.description.isEmpty()}"
-                       th:text="${wish.description}">
-                    </p>
+                                <a th:if="${wish.linkUrl != null and !wish.linkUrl.isEmpty()}"
+                                   th:href="${wish.linkUrl}"
+                                   target="_blank"
+                                   rel="noopener noreferrer">
+                                    Se produkt
+                                </a>
+                            </div>
+                        </article>
+                    </div>
 
-                    <p th:if="${wish.price > 0}"
-                       th:text="${wish.price} + ' kr.'">
-                    </p>
-
-                    <a th:if="${wish.linkUrl != null and !wish.linkUrl.isEmpty()}"
-                       th:href="${wish.linkUrl}"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        Se produkt
-                    </a>
-
-                </article>
-
+                </div>
             </div>
-
         </section>
 
     </div>

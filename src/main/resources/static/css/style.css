@@ -1,580 +1,686 @@
 
-* {
-    box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --navy: #17243b;
-    --purple: #7c3aed;
-    --purple-dark: #6d28d9;
-    --purple-soft: #f3efff;
-    --background: #f7f8fc;
-    --white: #ffffff;
-    --text: #26334a;
-    --secondary: #8490a3;
-    --border: #e9ebf2;
-    --success: #168653;
-    --danger: #dc4c4c;
+    --background: #f8f7fc;
+    --surface: #ffffff;
+    --surface-soft: #f1edff;
+    --primary: #7049ef;
+    --primary-dark: #5835d5;
+    --primary-light: #e9e2ff;
+    --text: #211b35;
+    --muted: #777187;
+    --border: #e9e5f0;
+    --danger: #dc4661;
+    --danger-light: #fff0f2;
+    --success: #21966c;
+    --radius: 18px;
+    --shadow: 0 8px 30px rgba(36, 25, 75, 0.06);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
     background: var(--background);
     color: var(--text);
-    line-height: 1.55;
-    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
-main {
-    width: 100%;
-    max-width: 1100px;
-    margin: 42px auto;
-    padding: 0 28px;
-}
-
-h1, h2, h3 {
-    color: var(--navy);
-    line-height: 1.3;
+h1, h2, h3, h4 {
+    font-family: 'Manrope', sans-serif;
+    color: var(--text);
+    line-height: 1.25;
 }
 
 h1 {
-    font-size: 30px;
-    font-weight: 700;
-    margin: 0 0 8px;
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    font-weight: 800;
+    letter-spacing: -1.8px;
+    margin-bottom: 16px;
 }
 
 h2 {
-    font-size: 21px;
-    font-weight: 650;
-    margin: 0 0 12px;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    margin-bottom: 14px;
 }
 
 h3 {
-    font-size: 16px;
-    font-weight: 650;
-    margin: 0 0 8px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
 p {
-    color: var(--secondary);
-    margin-top: 6px;
+    color: var(--muted);
+    margin-bottom: 16px;
 }
-
-/* Navigation */
-
-nav {
-    min-height: 66px;
-    padding: 0 7%;
-    background: var(--navy);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 8px rgba(23, 36, 59, 0.08);
-}
-
-nav > a {
-    color: var(--white);
-    font-size: 21px;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-nav > div {
-    display: flex;
-    align-items: center;
-    gap: 26px;
-}
-
-nav div a {
-    color: #dce2ed;
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-nav div a:hover {
-    color: #a78bfa;
-    text-decoration: none;
-}
-
-/* General sections */
-
-section {
-    background: var(--white);
-    padding: 26px;
-    margin-bottom: 22px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-}
-
-article {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-article:hover {
-    border-color: #d7c9fa;
-    box-shadow: 0 4px 12px rgba(23, 36, 59, 0.04);
-}
-
-article h3 {
-    margin-top: 0;
-}
-
-/* Links */
 
 a {
-    color: var(--purple);
-    font-weight: 600;
+    color: var(--primary);
     text-decoration: none;
+    transition: 0.2s ease;
 }
 
 a:hover {
-    color: var(--purple-dark);
-    text-decoration: none;
+    color: var(--primary-dark);
 }
 
-/* Buttons */
-
 button,
-.btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-    min-height: 37px;
-    padding: 8px 15px;
-    border-radius: 7px;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.3;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
+input,
+textarea {
+    font: inherit;
 }
 
 button {
-    background: var(--purple);
-    color: var(--white);
-    border: 1px solid var(--purple);
+    cursor: pointer;
 }
-
-button:hover {
-    background: var(--purple-dark);
-    border-color: var(--purple-dark);
-}
-
-.btn-primary {
-    background: var(--purple);
-    color: var(--white);
-    border: 1px solid var(--purple);
-}
-
-.btn-primary:hover {
-    background: var(--purple-dark);
-    color: var(--white);
-}
-
-.btn-secondary {
-    background: var(--white);
-    color: var(--text);
-    border: 1px solid var(--border);
-}
-
-.btn-secondary:hover {
-    background: #f8f7fc;
-    color: var(--purple);
-    border-color: #d7c9fa;
-}
-
-.btn-danger {
-    background: var(--white);
-    color: var(--danger);
-    border: 1px solid #f1dada;
-}
-
-.btn-danger:hover {
-    background: #fff6f6;
-    color: #b91c1c;
-    border-color: #eababa;
-}
-
-.btn-small {
-    min-height: 32px;
-    padding: 6px 12px;
-    font-size: 12px;
-}
-
-/* Forms */
-
-form {
-    width: 100%;
-    max-width: 600px;
-}
-
-label {
-    display: block;
-    margin-bottom: 7px;
-    color: var(--text);
-    font-size: 13px;
-    font-weight: 600;
-}
-
-input,
-textarea {
-    width: 100%;
-    padding: 11px 13px;
-    border: 1px solid #dfe3ec;
-    border-radius: 7px;
-    background: var(--white);
-    color: var(--text);
-    font-family: inherit;
-    font-size: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-input:focus,
-textarea:focus {
-    outline: none;
-    border-color: var(--purple);
-    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.08);
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: #a4adbb;
-}
-
-textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-form div {
-    margin-bottom: 18px;
-}
-
-/* Wishlist page */
-
-.wishlist-page {
-    max-width: 1000px;
-    margin: 35px auto;
-}
-
-.wishlist-page section {
-    padding: 26px;
-    margin-bottom: 18px;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    box-shadow: none;
-}
-
-.wishlist-header {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-}
-
-.wishlist-heading {
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--border);
-}
-
-.wishlist-page h1 {
-    font-size: 30px;
-    margin: 5px 0;
-}
-
-.wishlist-label {
-    color: var(--purple);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-}
-
-.wishlist-page h2 {
-    font-size: 19px;
-    margin: 0 0 5px;
-}
-
-.wishlist-page p {
-    font-size: 14px;
-}
-
-.wishlist-edit {
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border);
-}
-
-.wishlist-edit form {
-    max-width: 100%;
-}
-
-.wishlist-edit-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.wishlist-edit-row input {
-    flex: 1;
-    min-width: 0;
-}
-
-.wishlist-edit-row button {
-    flex-shrink: 0;
-}
-
-.wishlist-share {
-    padding: 19px 20px;
-    background: #faf9ff;
-    border: 1px solid #eee8ff;
-    border-radius: 9px;
-}
-
-.share-information h2 {
-    font-size: 16px;
-    margin-bottom: 3px;
-}
-
-.share-information p {
-    margin: 0;
-}
-
-.share-actions {
-    display: flex;
-    gap: 9px;
-    margin-top: 13px;
-}
-
-.copy-message {
-    color: var(--success);
-    font-size: 12px;
-    font-weight: 600;
-    margin: 8px 0 0;
-}
-
-.wishlist-page .wishlist-delete {
-    width: auto;
-    max-width: none;
-    margin: 0;
-}
-
-.wishlist-delete button {
-    min-height: 32px;
-    padding: 6px 12px;
-    font-size: 12px;
-}
-
-.wishlist-content-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 18px;
-}
-
-.wishlist-content-heading h2 {
-    margin-top: 4px;
-}
-
-.wishlist-grid {
-    display: block;
-}
-
-.wishlist-page .wishlist-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    margin-top: 12px;
-    padding: 18px;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    box-shadow: none;
-}
-
-.wishlist-page .wishlist-item:hover {
-    border-color: #d7c9fa;
-    box-shadow: 0 4px 12px rgba(23, 36, 59, 0.04);
-    transform: none;
-}
-
-.wish-information {
-    flex: 1;
-    min-width: 0;
-}
-
-.wish-information h3 {
-    font-size: 16px;
-    margin: 0 0 5px;
-}
-
-.wish-information p {
-    font-size: 13px;
-    margin: 0 0 8px;
-}
-
-.wish-price {
-    display: block;
-    color: var(--navy);
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 7px;
-}
-
-.wish-product-link {
-    display: inline-block;
-    font-size: 13px;
-}
-
-.wish-actions {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    flex-shrink: 0;
-}
-
-.wish-actions form {
-    width: auto;
-    margin: 0;
-}
-
-.wish-actions button {
-    margin: 0;
-}
-
-.wishlist-empty {
-    padding: 18px;
-    background: #fafbfe;
-    border: 1px dashed #dfe3ec;
-    border-radius: 8px;
-    font-size: 13px;
-}
-
-.back-link {
-    display: inline-block;
-    margin: 0 0 30px;
-    font-size: 13px;
-}
-
-/* Error messages */
-
-[style*="color: red"] {
-    background: #fff5f5;
-    color: #b91c1c !important;
-    border: 1px solid #fecaca;
-    border-radius: 7px;
-    padding: 11px 14px;
-    margin: 14px 0;
-}
-
-/* Accessibility */
 
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-    outline: 3px solid rgba(124, 58, 237, 0.2);
+    outline: 3px solid var(--primary-light);
     outline-offset: 3px;
 }
 
-/* Tablet */
+.site-navbar {
+    width: 100%;
+    min-height: 82px;
+    padding: 0 max(5%, calc((100% - 1200px) / 2));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
 
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-        gap: 15px;
-        padding: 18px;
+.nav-logo a {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text);
+}
+
+.nav-logo a:hover {
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.nav-links a {
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nav-auth a {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.93rem;
+}
+
+.nav-auth a:hover {
+    color: var(--primary);
+}
+
+.nav-auth .register-link {
+    padding: 11px 20px;
+    background: var(--primary);
+    color: white;
+    border-radius: 11px;
+}
+
+.nav-auth .register-link:hover {
+    background: var(--primary-dark);
+    color: white;
+}
+
+main {
+    width: min(1100px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 65px 0 90px;
+}
+
+main > section {
+    margin-bottom: 30px;
+}
+
+main > section:first-child {
+    margin-bottom: 45px;
+    padding: 40px 0;
+}
+
+main > section:first-child > div {
+    max-width: 750px;
+}
+
+main > section:first-child p {
+    max-width: 680px;
+    font-size: 1.08rem;
+}
+
+main > section:first-child span {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+main > section:first-child > div > div {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+main > section:not(:first-child) {
+    padding: 35px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+main > section:not(:first-child) > div:first-child {
+    margin-bottom: 22px;
+}
+
+main button,
+main section a,
+main article a {
+    transition: 0.2s ease;
+}
+
+main section a,
+main form button,
+main article a,
+main article button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 11px 19px;
+    min-height: 44px;
+    border: 1px solid var(--primary);
+    border-radius: 11px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.93rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+main section a:hover,
+main form button:hover,
+main article a:hover,
+main article button:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+}
+
+main section a + a {
+    margin-left: 8px;
+}
+
+main form button {
+    border: none;
+}
+
+main form button + a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    padding: 11px 19px;
+    margin-left: 8px;
+    background: var(--surface-soft);
+    color: var(--primary);
+    border-radius: 11px;
+    font-weight: 700;
+}
+
+main form button + a:hover {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+form {
+    width: 100%;
+    max-width: 650px;
+}
+
+form > div {
+    margin-bottom: 22px;
+}
+
+form > div:last-child {
+    margin-bottom: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text);
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+input,
+textarea {
+    display: block;
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #ded9e9;
+    border-radius: 11px;
+    background: white;
+    color: var(--text);
+    transition: 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #aaa5b6;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(112, 73, 239, 0.1);
+}
+
+textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+main article {
+    padding: 25px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    transition: 0.2s ease;
+}
+
+main article:hover {
+    border-color: #d8cdfd;
+    box-shadow: var(--shadow);
+}
+
+main article p:last-child {
+    margin-bottom: 0;
+}
+
+main section > div > div > article {
+    height: 100%;
+}
+
+main section > div > div > article > div:last-child {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+body:has(main > section:nth-child(2) article) main > section:first-child {
+    padding: 65px 55px;
+    background: linear-gradient(120deg, #f0ebff, #faf8ff 65%, #e8e1ff);
+    border: 1px solid #e7defd;
+    border-radius: 25px;
+}
+
+body:has(main > section:nth-child(2) article) main > section:nth-child(2) > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+body:has(main > section:nth-child(2) article) main > section:nth-child(2) article {
+    background: #fbfaff;
+}
+
+body:has(main > section:nth-child(2) article) main > section:last-child {
+    text-align: center;
+    background: linear-gradient(120deg, #30215f, #6947df);
+    border: none;
+}
+
+body:has(main > section:nth-child(2) article) main > section:last-child h2,
+body:has(main > section:nth-child(2) article) main > section:last-child p {
+    color: white;
+}
+
+body:has(main > section:nth-child(2) article) main > section:last-child a {
+    background: white;
+    color: var(--primary);
+    border-color: white;
+}
+
+body:has(form[action="/login"]) main,
+body:has(form[action="/register"]) main {
+    max-width: 560px;
+    padding-top: 65px;
+}
+
+body:has(form[action="/login"]) main > section:first-child,
+body:has(form[action="/register"]) main > section:first-child {
+    text-align: center;
+}
+
+body:has(form[action="/login"]) main > section:first-child > div,
+body:has(form[action="/register"]) main > section:first-child > div {
+    margin: 0 auto;
+}
+
+body:has(form[action="/login"]) main > section:nth-child(2),
+body:has(form[action="/register"]) main > section:nth-child(2) {
+    padding: 35px;
+}
+
+body:has(form[action="/login"]) main > section:nth-child(2) form,
+body:has(form[action="/register"]) main > section:nth-child(2) form {
+    max-width: none;
+}
+
+body:has(form[action="/login"]) main form button,
+body:has(form[action="/register"]) main form button {
+    width: 100%;
+}
+
+body:has(form[action="/login"]) main > section:last-of-type,
+body:has(form[action="/register"]) main > section:last-of-type {
+    text-align: center;
+    background: var(--surface-soft);
+    box-shadow: none;
+    border: none;
+}
+
+body:has(main > section > div > article) main > section:last-child > div:last-child {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+}
+
+body:has(main > section > div > article) main > section:last-child article {
+    background: #fbfaff;
+}
+
+body:has(main > section > div > article) main > section:last-child article h3 {
+    margin-bottom: 16px;
+}
+
+body:has(#copyMessage) main > section:first-child {
+    padding: 45px;
+    background: linear-gradient(120deg, #f0ebff, #faf8ff);
+    border-radius: 22px;
+    border: 1px solid #e7defd;
+}
+
+body:has(#copyMessage) main > section:nth-child(3) > div:nth-child(2) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+body:has(#copyMessage) #copyMessage {
+    margin-top: 12px;
+    color: var(--success);
+    font-weight: 700;
+}
+
+body:has(#copyMessage) main > section:nth-child(4) {
+    background: var(--danger-light);
+    border-color: #f4dce1;
+    box-shadow: none;
+}
+
+body:has(#copyMessage) main > section:nth-child(4) button,
+body:has(#copyMessage) main article form button {
+    background: var(--danger-light);
+    color: var(--danger);
+    border: 1px solid #f1d1d9;
+}
+
+body:has(#copyMessage) main > section:nth-child(4) button:hover,
+body:has(#copyMessage) main article form button:hover {
+    background: var(--danger);
+    color: white;
+}
+
+body:has(#copyMessage) main > section:nth-child(5) > div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+body:has(#copyMessage) main > section:nth-child(5) > div:last-child {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 18px;
+}
+
+body:has(#copyMessage) main > section:nth-child(5) article {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    height: 100%;
+}
+
+body:has(#copyMessage) main > section:nth-child(5) article > div:last-child {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+body:has(#copyMessage) main > section:nth-child(5) article form {
+    width: auto;
+    margin: 0;
+}
+
+body:has(#copyMessage) main > section:nth-child(5) article p {
+    overflow-wrap: anywhere;
+}
+
+body:has(main > div > section) main > div > section:first-child {
+    padding: 45px;
+    background: linear-gradient(120deg, #f0ebff, #faf8ff);
+    border-radius: 22px;
+    border: 1px solid #e7defd;
+}
+
+body:has(main > div > section) main > div > section:nth-child(2) {
+    padding: 35px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+body:has(main > div > section) main > div > section:nth-child(2) > div > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 18px;
+}
+
+body:has(main > div > section) main article > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+main > nav {
+    margin-top: 35px;
+}
+
+main > nav a {
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .site-navbar {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 18px 25px;
+        gap: 16px;
     }
 
-    nav > div {
-        flex-wrap: wrap;
+    .nav-links {
+        order: 3;
+        width: 100%;
         justify-content: center;
-        gap: 15px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
     }
 
     main {
-        margin: 25px auto;
-        padding: 0 16px;
+        padding-top: 45px;
     }
 
-    .wishlist-page {
-        margin: 25px auto;
-        padding: 0 16px;
-    }
-
-    .wishlist-page section {
-        padding: 20px;
+    body:has(main > section:nth-child(2) article) main > section:nth-child(2) > div:nth-child(2) {
+        grid-template-columns: 1fr;
     }
 }
 
-/* Mobile */
-
-@media (max-width: 480px) {
-    nav > div {
-        flex-direction: column;
-        gap: 9px;
+@media (max-width: 640px) {
+    body {
+        font-size: 15px;
     }
 
-    .wishlist-page {
-        margin: 18px auto;
-        padding: 0 12px;
+    .site-navbar {
+        padding: 16px 18px;
     }
 
-    .wishlist-page h1 {
-        font-size: 25px;
+    .nav-logo a {
+        font-size: 1.3rem;
     }
 
-    .wishlist-page section {
-        padding: 17px;
+    .nav-links {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 12px 20px;
     }
 
-    .wishlist-edit-row {
-        flex-direction: column;
-        align-items: stretch;
+    .nav-links a {
+        font-size: 0.85rem;
     }
 
-    .wishlist-edit-row button {
-        width: 100%;
+    .nav-auth {
+        gap: 12px;
     }
 
-    .share-actions {
-        flex-direction: column;
+    .nav-auth a {
+        font-size: 0.85rem;
     }
 
-    .share-actions .btn {
-        width: 100%;
+    .nav-auth .register-link {
+        padding: 9px 13px;
     }
 
-    .wishlist-content-heading {
-        align-items: stretch;
-        flex-direction: column;
+    main {
+        width: calc(100% - 28px);
+        padding: 35px 0 60px;
     }
 
-    .wishlist-content-heading .btn {
-        width: 100%;
+    main > section:first-child {
+        padding: 25px 0;
+        margin-bottom: 25px;
     }
 
-    .wishlist-page .wishlist-item {
-        align-items: flex-start;
-        flex-direction: column;
+    main > section:not(:first-child) {
+        padding: 22px;
+        margin-bottom: 20px;
     }
 
-    .wish-actions {
-        width: 100%;
+    h1 {
+        font-size: 2.2rem;
     }
 
-    .wish-actions .btn {
-        flex: 1;
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    body:has(main > section:nth-child(2) article) main > section:first-child {
+        padding: 35px 25px;
+    }
+
+    body:has(#copyMessage) main > section:first-child {
+        padding: 30px 22px;
+    }
+
+    body:has(#copyMessage) main > section:nth-child(5) > div:last-child {
+        grid-template-columns: 1fr;
+    }
+
+    body:has(form[action="/login"]) main,
+    body:has(form[action="/register"]) main {
+        padding-top: 35px;
+    }
+
+    body:has(form[action="/login"]) main > section:nth-child(2),
+    body:has(form[action="/register"]) main > section:nth-child(2) {
+        padding: 22px;
+    }
+
+    main section > div > a,
+    main form button {
+        max-width: 100%;
+    }
+
+    form > div:last-child {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    main form button + a {
+        margin-left: 0;
     }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+
