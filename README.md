@@ -98,6 +98,9 @@ https://github.com/BomboclatWasTaken/Wishlist/blob/main/Wishlist%20KlasseDiagram
 ## Ideate pdf:
 https://github.com/BomboclatWasTaken/Wishlist/blob/main/Ideate-fasen.pdf
 
+## Usability Test:
+https://github.com/BomboclatWasTaken/Wishlist/blob/main/Usabilitytest_%20Wishlist.pdf
+
 ## Afgrænsninger
 
 - Adgangskoder gemmes i klartekst og bliver ikke hashet.
