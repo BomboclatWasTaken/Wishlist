@@ -91,9 +91,12 @@ erDiagram
         int wish_list_id FK
     }
 ```
-## Klassediagram
+## Klassediagram:
 
 https://github.com/BomboclatWasTaken/Wishlist/blob/main/Wishlist%20KlasseDiagram.pdf
+
+## Ideate pdf:
+https://github.com/BomboclatWasTaken/Wishlist/blob/main/Ideate-fasen.pdf
 
 ## Afgrænsninger
 
