@@ -143,7 +143,7 @@ class WishControllerTest {
                 .andExpect(redirectedUrl("/wishlists/5"));
 
 
-        //ArgumentCaptor fanger det Wsih-object controlleren har sendt videre til servicen.
+        //ArgumentCaptor fanger det Wish-object controlleren har sendt videre til servicen.
         ArgumentCaptor<Wish> captor = ArgumentCaptor.forClass(Wish.class);
 
         //Tjekker at updateWish bliver kaldt, og fanger Wish-objektet (eq(1) = bruger-id'et skal være 1)
